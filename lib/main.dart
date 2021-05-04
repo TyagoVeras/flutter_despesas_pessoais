@@ -1,5 +1,6 @@
 import 'package:expenses/models/transection.dart';
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
 
 void main() => runApp(ExpensesApp());
 
@@ -17,6 +18,15 @@ class ExpensesApp extends StatelessWidget {
 
 class MyHomePage extends StatelessWidget {
   MyHomePage({Key key}) : super(key: key);
+
+  void getHttp() async {
+    try {
+      var response = await Dio().get("https://lici.app:8082/categorias/index/");
+      print(response);
+    } catch (err) {
+      print(err);
+    }
+  }
 
   final _transections = [
     Transection(
@@ -63,7 +73,7 @@ class MyHomePage extends StatelessWidget {
                                   border: Border.all(
                                       color: Colors.purple, width: 2)),
                               child: Text(
-                                e.value.toString(),
+                                "R\$ ${e.value.toStringAsFixed(2)}",
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.purple,
